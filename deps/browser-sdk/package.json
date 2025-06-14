@@ -1,0 +1,64 @@
+{
+  "name": "intmax2-client-sdk",
+  "version": "1.2.4",
+  "description": "Client SDK for Intmax2",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/cjs/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "build": "rimraf dist && pnpm build:cjs && pnpm build:esm && pnpm build:types && pnpm run copy-wasm",
+    "copy-wasm": "mkdir -p dist/esm/wasm dist/cjs/wasm && cp -r src/wasm/* dist/esm/wasm/ && cp -r src/wasm/* dist/cjs/wasm/",
+    "prepare": "pnpm build",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint src --max-warnings=0 --fix"
+  },
+  "keywords": [
+    "sdk",
+    "client",
+    "intmax2"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@scure/bip32": "^1.7.0",
+    "@scure/bip39": "^1.5.1",
+    "axios": "^1.7.9",
+    "predicate-sdk": "^0.1.3",
+    "viem": "^2.22.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.21.0",
+    "@typescript-eslint/parser": "^8.21.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "node": "^22.13.0",
+    "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.5.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@9.9.0+sha1.3edbe440f4e570aa8f049adbd06b9483d55cc2d2"
+}
